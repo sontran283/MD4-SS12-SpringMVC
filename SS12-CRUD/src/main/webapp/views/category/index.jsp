@@ -96,27 +96,34 @@
 <body>
 
 <div class="container">
-    <h1 class="text-center text-danger">Danh sách sinh viên</h1>
-    <a href="student/add">Thêm mới sinh viên</a> <br>
+    <c:if test="${!empty mess}">
+        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                <span class="sr-only">Close</span>
+            </button>
+            <strong>${mess}</strong>
+        </div>
+    </c:if>
+    <h1 class="text-center text-danger">Danh sách Category</h1>
+    <a href="category-add">Thêm mới category</a> <br>
     <table class="table">
         <thead>
         <tr>
             <th>STT</th>
             <th>Name</th>
-            <th>Age</th>
-            <th>Sex</th>
+            <th>Status</th>
             <th colspan="2">Action</th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${list}" var="student">
+        <c:forEach items="${list}" var="item">
             <tr>
-                <td scope="row">${student.studentCode}</td>
-                <td>${student.studentName}</td>
-                <td>${student.age}</td>
-                <td>${student.sex ? "Nam" : "Nữ"}</td>
-                <td><a href="student/update?id=${student.studentCode}">Edit</a></td>
-                <td><a href="student/delete?id=${student.studentCode}" onclick="return confirm('Are you sure?')">Delete</a>
+                <td>${item.categoryId}</td>
+                <td>${item.categoryName}</td>
+                <td>${item.categoryStatus ? "Active" : "Block"}</td>
+                <td><a href="category/edit/${item.categoryId}">Edit</a></td>
+                <td><a href="category/delete?${item.categoryStatus ? "btn-danger" : "btn-success"}" onclick="return confirm('Are you sure?')">Delete</a>
                 </td>
             </tr>
         </c:forEach>

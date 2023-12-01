@@ -56,7 +56,8 @@
             <td>${customer.getAddress()}</td>
             <td>${customer.getEmail()}</td>
             <td><a href="/customer/edit?id=${customer.getCustomerId()}">edit</a></td>
-            <td><a href="/customer/delete?id=${customer.getCustomerId()}">delete</a></td>
+            <td><a href="/customer/delete?id=${customer.getCustomerId()}" onclick="return confirm('Are you sure?')">delete</a>
+            </td>
         </tr>
     </c:forEach>
 </table>

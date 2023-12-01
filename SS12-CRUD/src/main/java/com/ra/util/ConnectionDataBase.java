@@ -4,17 +4,15 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class ConnectionDB {
-    // ConnectionDB__kết nối CSDL
-    private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
-    private static final String URL = "jdbc:mysql://localhost:3306/demo_spring_mvc_cryud";
+public class ConnectionDataBase {
+    private static final String URL = "jdbc:mysql://localhost:3306/ss12_crud_demo";
     private static final String USER = "root";
     private static final String PASSWORD = "11111111";
 
     public static Connection openConnection() {
         Connection connection = null;
         try {
-            Class.forName(DRIVER);
+            Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(URL, USER, PASSWORD);
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -25,7 +23,7 @@ public class ConnectionDB {
     }
 
 //    public static void main(String[] args) {
-//        System.out.println(ConnectionDB.openConnection());
+//        System.out.println(ConnectionDataBase.openConnection());
 //    }
 
     public static void closeConnection(Connection connection) {
