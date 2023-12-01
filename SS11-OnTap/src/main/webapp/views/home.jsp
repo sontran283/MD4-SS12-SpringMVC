@@ -35,7 +35,7 @@
                 <a class="nav-link" href="student">Student</a>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link" href="register">Register</a>
+                <a class="nav-link" href="register">Register</a>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">

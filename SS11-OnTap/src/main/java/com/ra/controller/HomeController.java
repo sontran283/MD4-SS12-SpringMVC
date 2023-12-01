@@ -13,7 +13,7 @@ import java.util.List;
 
 @Controller
 public class HomeController {
-    private StudentService studentService = new StudentServiceImpl();
+    private final StudentService studentService = new StudentServiceImpl();
 
     @RequestMapping("/")
     public String home() {
@@ -24,14 +24,14 @@ public class HomeController {
     public String student(Model model) {
         List<Student> list = studentService.findAll();
         model.addAttribute("list", list);
-        return "student";
+        return "crud/student";
     }
 
     @RequestMapping("/register")
     public String register(Model model) {
         Account account = new Account();
         model.addAttribute("account", account);
-        return "register";
+        return "login_register/register";
     }
 
 //    @RequestMapping(value = "/register", method = RequestMethod.POST)
