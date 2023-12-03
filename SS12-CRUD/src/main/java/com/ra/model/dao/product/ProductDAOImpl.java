@@ -19,11 +19,11 @@ public class ProductDAOImpl implements ProductDAO {
     @Override
     public List<Product> findAll() {
         Connection connection = null;
-        connection = ConnectionDataBase.openConnection();
         List<Product> products = new ArrayList<>();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM product");
-            ResultSet resultSet = preparedStatement.executeQuery();
+            connection = ConnectionDataBase.openConnection();
+            CallableStatement callableStatement = connection.prepareCall("{CALL PROC_SHOW_PRODUCT()}");
+            ResultSet resultSet = callableStatement.executeQuery();
             while (resultSet.next()) {
                 Product product = new Product();
                 product.setProductId(resultSet.getInt("id"));
@@ -43,16 +43,71 @@ public class ProductDAOImpl implements ProductDAO {
 
     @Override
     public Product findById(Integer id) {
-        return null;
+        Connection connection = null;
+        Product product = new Product();
+        try {
+            connection = ConnectionDataBase.openConnection();
+            CallableStatement callableStatement = connection.prepareCall("{CALL PROC_FIND_BY_ID_PRODUCT(?)}");
+            callableStatement.setInt(1, id);
+            ResultSet resultSet = callableStatement.executeQuery();
+            while (resultSet.next()) {
+                product.setProductId(resultSet.getInt("id"));
+                product.setProductName(resultSet.getString("name"));
+                product.setPrice(resultSet.getDouble("price"));
+                Category category = categoryDAO.findById(resultSet.getInt("category_id"));
+                product.setCategory(category);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            ConnectionDataBase.closeConnection(connection);
+        }
+        return product;
     }
 
     @Override
     public boolean saveOrUpdate(Product product) {
+        Connection connection = null;
+        connection = ConnectionDataBase.openConnection();
+        try {
+            if (product.getProductId() == 0) {
+                CallableStatement callableStatement = connection.prepareCall("{CALL PROC_ADD_PRODUCT(?,?,?,?)}");
+                callableStatement.setString(1, product.getProductName());
+                callableStatement.setDouble(2, product.getPrice());
+                callableStatement.setInt(3, product.getCategory().getCategoryId());
+                int check = callableStatement.executeUpdate();
+                if (check > 0) {
+                    return true;
+                }
+            } else {
+                CallableStatement callableStatement = connection.prepareCall("{CALL PROC_EDIT_PRODUCT(?,?,?,?)}");
+                callableStatement.setInt(1, product.getProductId());
+                callableStatement.setString(2, product.getProductName());
+                callableStatement.setDouble(3, product.getPrice());
+                callableStatement.setDouble(4, product.getCategory().getCategoryId());
+                int check = callableStatement.executeUpdate();
+                if (check > 0) {
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            ConnectionDataBase.closeConnection(connection);
+        }
         return false;
     }
 
     @Override
     public void delete(Integer id) {
-
+        Connection connection = null;
+        connection = ConnectionDataBase.openConnection();
+        try {
+            CallableStatement callableStatement = connection.prepareCall("{CALL PROC_DELETE_PRODUCT(?)}");
+            callableStatement.setInt(1, id);
+            callableStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

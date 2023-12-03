@@ -32,7 +32,8 @@
                     <label>Category Status</label>
                     <div class="form-check form-check-inline">
                         <label class="form-check-label">
-                            <form:radiobutton class="form-check-input" path="categoryStatus" checked="checked" value="1"/> Active
+                            <form:radiobutton class="form-check-input" path="categoryStatus" checked="checked"
+                                              value="1"/> Active
                         </label>
                     </div>
                     <div class="form-check form-check-inline">

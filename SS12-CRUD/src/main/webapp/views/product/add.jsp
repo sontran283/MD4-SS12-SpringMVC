@@ -22,23 +22,22 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-6">
-            <form:form action="create-category" method="post" modelAttribute="category">
+            <form:form action="create-product" method="post" modelAttribute="product">
                 <div class="form-group">
-                    <label >Category Name</label>
-                    <form:input type="text" path="categoryName" class="form-control" placeholder="Enter email" />
+                    <label >Product Name</label>
+                    <form:input type="text" path="productName" class="form-control" placeholder="Enter name" />
                 </div>
                 <div class="form-group">
-                    <label>Category Status</label>
-                    <div class="form-check form-check-inline">
-                        <label class="form-check-label">
-                            <form:radiobutton class="form-check-input" path="categoryStatus" checked="checked"  value="1" /> Active
-                        </label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <label class="form-check-label">
-                            <form:radiobutton class="form-check-input" path="categoryStatus"  value="0" /> Inactive
-                        </label>
-                    </div>
+                    <label >Product price</label>
+                    <form:input type="text" path="price" class="form-control" placeholder="Enter price" />
+                </div>
+                <div class="form-group">
+                    <label >Category</label>
+                    <select class="form-control" id="categoryId" name="categoryId">
+                        <c:forEach var="item" items="${categoryList}">
+                            <option value="${item.categoryId}">${item.categoryName}</option>
+                        </c:forEach>
+                    </select>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form:form>

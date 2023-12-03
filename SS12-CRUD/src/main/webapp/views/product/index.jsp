@@ -112,7 +112,7 @@
         <tr>
             <th>STT</th>
             <th>Name</th>
-            <th>Status</th>
+            <th>Price</th>
             <th>Category Name</th>
             <th colspan="2">Action</th>
         </tr>
@@ -124,8 +124,8 @@
                 <td>${item.productName}</td>
                 <td>${item.price}</td>
                 <td>${item.category.categoryName}</td>
-                <td><a href="category/edit/${item.productId}">Edit</a></td>
-                <td><a href="category/delete?${item.productId}" onclick="return confirm('Are you sure?')">Delete</a>
+                <td><a href="product/edit/${item.productId}">Edit</a></td>
+                <td><a href="product/delete?${item.productId}" onclick="return confirm('Are you sure?')">Delete</a>
                 </td>
             </tr>
         </c:forEach>

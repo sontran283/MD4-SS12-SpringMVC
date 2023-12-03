@@ -22,24 +22,26 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-6">
-            <form:form action="/category-update" method="post" modelAttribute="category">
-                <form:input type="hidden" path="categoryId"/>
-                <div class="form-group">
-                    <label>Category Name</label>
-                    <form:input type="text" path="categoryName" class="form-control" placeholder="Enter email"/>
+            <form:form action="${pageContext.request.contextPath}/product-update" method="post" modelAttribute="product">
+                <div class="form-group mb-4">
+                    <label>PRODUCT ID</label>
+                    <form:input type="text" class="form-control" path="productId" />
                 </div>
                 <div class="form-group">
-                    <label>Category Status</label>
-                    <div class="form-check form-check-inline">
-                        <label class="form-check-label">
-                            <form:radiobutton class="form-check-input" path="categoryStatus" checked="checked" value="1"/> Active
-                        </label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <label class="form-check-label">
-                            <form:radiobutton class="form-check-input" path="categoryStatus" value="0"/> Inactive
-                        </label>
-                    </div>
+                    <label>PRODUCT Name</label>
+                    <form:input type="text" path="productName" class="form-control" placeholder="Enter name"/>
+                </div>
+                <div class="form-group">
+                    <label>PRODUCT price</label>
+                    <form:input type="text" path="price" class="form-control" placeholder="Enter price"/>
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <select class="form-control" id="categoryId" name="categoryId">
+                        <c:forEach var="item" items="${categoryList}">
+                            <option value="${item.categoryId}" selected="${item.categoryId==product.category.categoryId?'selected':''}" >${item.categoryName}</option>
+                        </c:forEach>
+                    </select>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form:form>
