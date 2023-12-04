@@ -71,7 +71,7 @@ public class ProductDAOImpl implements ProductDAO {
         connection = ConnectionDataBase.openConnection();
         try {
             if (product.getProductId() == 0) {
-                CallableStatement callableStatement = connection.prepareCall("{CALL PROC_ADD_PRODUCT(?,?,?,?)}");
+                CallableStatement callableStatement = connection.prepareCall("{CALL PROC_ADD_PRODUCT(?,?,?)}");
                 callableStatement.setString(1, product.getProductName());
                 callableStatement.setDouble(2, product.getPrice());
                 callableStatement.setInt(3, product.getCategory().getCategoryId());

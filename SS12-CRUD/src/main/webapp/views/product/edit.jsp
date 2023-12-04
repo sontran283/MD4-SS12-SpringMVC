@@ -37,11 +37,11 @@
                 </div>
                 <div class="form-group">
                     <label>Category</label>
-                    <select class="form-control" id="categoryId" name="categoryId">
+                    <form:select path="category.categoryId" class="form-control" id="categoryId" name="categoryId">
                         <c:forEach var="item" items="${categoryList}">
-                            <option value="${item.categoryId}" selected="${item.categoryId==product.category.categoryId?'selected':''}" >${item.categoryName}</option>
+                            <form:option value="${item.categoryId}">${item.categoryName}</form:option>
                         </c:forEach>
-                    </select>
+                    </form:select>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form:form>

@@ -32,12 +32,12 @@
                     <form:input type="text" path="price" class="form-control" placeholder="Enter price" />
                 </div>
                 <div class="form-group">
-                    <label >Category</label>
-                    <select class="form-control" id="categoryId" name="categoryId">
+                    <label>Category</label>
+                    <form:select path="category.categoryId" class="form-control" id="categoryId" name="categoryId">
                         <c:forEach var="item" items="${categoryList}">
                             <option value="${item.categoryId}">${item.categoryName}</option>
                         </c:forEach>
-                    </select>
+                    </form:select>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form:form>

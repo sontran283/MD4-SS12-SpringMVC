@@ -28,9 +28,8 @@ public class ProductController {
 
     @GetMapping("/product-add")
     public String add(Model model) {
-        Product product = new Product();
         List<Category> categoryList = categoryService.findAll();
-        model.addAttribute("product", product);
+        model.addAttribute("product", new Product());
         model.addAttribute("categoryList", categoryList);
         return "product/add";
     }
@@ -47,7 +46,7 @@ public class ProductController {
     public String edit(@PathVariable("id") Integer id, Model model) {
         Product product = productService.findById(id);
         List<Category> categoryList = categoryService.findAll();
-        model.addAttribute("list_category", categoryList);
+        model.addAttribute("categoryList", categoryList);
         model.addAttribute("product", product);
         return "product/edit";
     }
@@ -58,5 +57,11 @@ public class ProductController {
             redirectAttributes.addFlashAttribute("message", "Edit product successfully");
         }
         return "redirect:product";
+    }
+
+    @GetMapping("/product/delete/{id}")
+    public String deleteProduct(@PathVariable("id") Integer id) {
+        productService.delete(id);
+        return "redirect:/product";
     }
 }
